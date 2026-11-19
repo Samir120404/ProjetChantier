@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Chantier App{% endblock %}</title>
+
+    <!-- Fonts -->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+<div id="wrapper">
+
+    <!-- SIDEBAR -->
+    {% include 'chantier/sidebar.html' %}
+
+    <!-- CONTENT -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <div id="content">
+
+            <!-- TOPBAR -->
+            {% include 'chantier/topbar.html' %}
+
+            <!-- PAGE CONTENT -->
+            <div class="container-fluid">
+
+                {% block content %}
+                {% endblock %}
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        {% include 'chantier/footer.html' %}
+
+    </div>
+</div>
+
+<!-- JS -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Charts (chargés seulement si besoin) -->
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends 'chantier/base.html' %}
+
+{% block content %}
+<h3>Formulaire Maître d’ouvrage</h3>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="btn btn-success">Enregistrer</button>
+                    <!-- BTN RETOUR -->
+                <a href="{% url 'liste_maitre_ouvrage' %}" class="btn btn-secondary">
+                    Retour à la liste
+                </a>
+</form>
+{% endblock %}

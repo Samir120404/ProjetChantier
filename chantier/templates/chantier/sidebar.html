@@ -1,0 +1,61 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'dashboard' %}">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-tools"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Chantier App</div>
+    </a>
+
+    <hr class="sidebar-divider my-0">
+
+    <!-- Dashboard -->
+    <li class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+        <a class="nav-link" href="{% url 'dashboard' %}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">Gestion</div>
+
+    <!-- Projets -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#projetsMenu">
+            <i class="fas fa-folder"></i>
+            <span>Projets</span>
+        </a>
+
+        <div id="projetsMenu" class="collapse">
+            <div class="bg-white py-2 collapse-inner rounded">
+
+                <a class="collapse-item" href="{% url 'liste_projets' %}">
+                    Liste des projets
+                </a>
+            <a class="collapse-item" href="{% url 'liste_maitre_ouvrage' %}">
+                Maîtres d’ouvrage
+            </a>
+
+            </div>
+        </div>
+    </li>
+
+    <!-- futurs modules -->
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-users"></i>
+            <span>Personnel</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-box"></i>
+            <span>Stock</span>
+        </a>
+    </li>
+
+</ul>

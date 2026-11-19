@@ -1,0 +1,164 @@
+{% extends 'chantier/base.html' %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <!-- HEADER -->
+    <div class="mb-4">
+        <h2 class="fw-bold mb-0">Dashboard Chantier</h2>
+        <small class="text-muted">Vue globale des activités du chantier</small>
+    </div>
+
+    <!-- KPI CARDS -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Total Projets</h6>
+                        <h3 class="fw-bold">{{ total_projets }}</h3>
+                    </div>
+                    <i class="fa fa-folder fa-2x opacity-75"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-warning text-dark">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>En attente</h6>
+                        <h3 class="fw-bold">{{ en_attente }}</h3>
+                    </div>
+                    <i class="fa fa-clock fa-2x opacity-75"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-success text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>En cours</h6>
+                        <h3 class="fw-bold">{{ en_cours }}</h3>
+                    </div>
+                    <i class="fa fa-spinner fa-2x opacity-75"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-dark text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Terminés</h6>
+                        <h3 class="fw-bold">{{ termines }}</h3>
+                    </div>
+                    <i class="fa fa-check fa-2x opacity-75"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SECOND ROW -->
+    <div class="row g-4">
+
+        <!-- CHART -->
+        <div class="col-md-7">
+            <div class="card border-0 shadow-sm rounded-4 p-3">
+                <h6 class="fw-bold mb-3">Répartition des projets</h6>
+                <canvas id="chartProjets"></canvas>
+            </div>
+        </div>
+
+        <!-- MAITRES -->
+        <div class="col-md-5">
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100">
+
+                <h6 class="text-muted">Maîtres d’ouvrage</h6>
+
+                <div class="display-4 fw-bold text-primary my-3">
+                    {{ total_maitres }}
+                </div>
+
+                <p class="text-muted">
+                    Clients enregistrés dans le système
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DERNIERS PROJETS -->
+    <div class="card border-0 shadow-sm rounded-4 mt-4">
+
+        <div class="card-header bg-white border-0">
+            <h6 class="fw-bold mb-0">Derniers projets</h6>
+        </div>
+
+        <div class="card-body p-0">
+
+            {% for p in derniers_projets %}
+            <div class="d-flex justify-content-between align-items-center px-3 py-3 border-bottom">
+
+                <div>
+                    <div class="fw-bold">{{ p.nom_projet }}</div>
+                    <small class="text-muted">
+                        {{ p.maitre_ouvrage.nom }}
+                    </small>
+                </div>
+
+                <span class="badge rounded-pill px-3 py-2
+                    {% if p.statut == 'En cours' %}bg-success
+                    {% elif p.statut == 'En attente' %}bg-warning text-dark
+                    {% elif p.statut == 'Terminé' %}bg-primary
+                    {% else %}bg-danger
+                    {% endif %}
+                ">
+                    {{ p.statut }}
+                </span>
+
+            </div>
+            {% empty %}
+            <div class="p-3 text-muted">
+                Aucun projet trouvé.
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CHART SAFE VERSION -->
+<script>
+const labels = JSON.parse('{{ chart_labels|escapejs }}');
+const data = JSON.parse('{{ chart_data|escapejs }}');
+
+const ctx = document.getElementById('chartProjets');
+
+new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: labels,
+        datasets: [{
+            data: data,
+            backgroundColor: ['#f1c40f', '#2ecc71', '#3498db']
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}

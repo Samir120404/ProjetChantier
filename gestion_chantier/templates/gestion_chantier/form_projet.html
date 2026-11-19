@@ -1,0 +1,112 @@
+{% extends 'chantier/base.html' %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <div class="card shadow-sm border-0 rounded-4 p-4">
+
+        <div class="mb-4">
+            <h3 class="fw-bold mb-0">Formulaire Projet</h3>
+            <small class="text-muted">Création ou modification d’un projet</small>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="row g-3">
+
+                <!-- SECTION 1 -->
+                <div class="col-12">
+                    <h6 class="text-primary">Informations générales</h6>
+                    <hr>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Maître d’ouvrage</label>
+                    {{ form.maitre_ouvrage }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Nom projet</label>
+                    {{ form.nom_projet }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Code projet</label>
+                    {{ form.code_projet }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Type projet</label>
+                    {{ form.type_projet }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Statut</label>
+                    {{ form.statut }}
+                </div>
+
+                <!-- SECTION 2 -->
+
+
+                <div class="col-md-12">
+                    <label class="form-label">Description</label>
+                    {{ form.description }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Adresse chantier</label>
+                    {{ form.adresse_chantier }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Coordonnées GPS</label>
+                    {{ form.coordonnees_gps }}
+                </div>
+
+                <!-- SECTION 3 -->
+
+
+                <div class="col-md-6">
+                    <label class="form-label">Date début</label>
+                    {{ form.date_debut }}
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Date fin prévue</label>
+                    {{ form.date_fin_prevue }}
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Durée (jours)</label>
+                    {{ form.duree_projet }}
+                </div>
+
+                <div class="col-md-8">
+                    <label class="form-label">Budget prévisionnel</label>
+                    {{ form.budget_previsionnel }}
+                </div>
+
+            </div>
+
+            <!-- BUTTONS -->
+            <div class="d-flex gap-2 mt-4">
+
+                <button type="submit" class="btn btn-success px-4">
+                    Enregistrer
+                </button>
+
+                <a href="{% url 'liste_projets' %}" class="btn btn-secondary px-4">
+                    Retour
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

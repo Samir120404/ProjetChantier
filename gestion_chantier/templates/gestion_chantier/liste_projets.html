@@ -1,0 +1,96 @@
+{% extends 'chantier/base.html' %}
+
+{% block content %}
+
+<h3>Liste des Projets</h3>
+
+<a href="{% url 'ajouter_projet' %}" class="btn btn-primary mb-3">
+    Ajouter un projet
+</a>
+
+<div class="table-responsive">
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
+        <tr>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Maître d’ouvrage</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Adresse chantier</th>
+            <th>GPS</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Durée</th>
+            <th>Budget</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for p in projets %}
+    <tr>
+
+        <td>{{ p.code_projet }}</td>
+        <td>{{ p.nom_projet }}</td>
+
+        <td>{{ p.maitre_ouvrage.nom }}</td>
+
+        <td>{{ p.type_projet }}</td>
+
+        <td>{{ p.description|truncatechars:40 }}</td>
+
+        <td>{{ p.adresse_chantier }}</td>
+
+        <td>{{ p.coordonnees_gps|default:"-" }}</td>
+
+        <td>{{ p.date_debut }}</td>
+
+        <td>{{ p.date_fin_prevue }}</td>
+
+        <td>{{ p.duree_projet }} j</td>
+
+        <td>{{ p.budget_previsionnel|default:"-" }}</td>
+
+        <td>
+            <span class="
+                {% if p.statut == 'En cours' %}badge bg-success
+                {% elif p.statut == 'En attente' %}badge bg-warning
+                {% elif p.statut == 'Terminé' %}badge bg-primary
+                {% else %}badge bg-danger
+                {% endif %}
+            ">
+                {{ p.statut }}
+            </span>
+        </td>
+
+        <td>
+            <a href="{% url 'modifier_projet' p.id %}" class="btn btn-warning btn-sm">
+                Modifier
+            </a>
+
+            <a href="{% url 'supprimer_projet' p.id %}" class="btn btn-danger btn-sm">
+                Supprimer
+            </a>
+        </td>
+
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="13" class="text-center text-muted">
+            Aucun projet enregistré
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

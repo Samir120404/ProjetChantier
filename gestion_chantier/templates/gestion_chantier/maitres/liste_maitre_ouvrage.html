@@ -1,0 +1,40 @@
+{% extends 'chantier/base.html' %}
+
+{% block content %}
+<h3>Maîtres d’ouvrage</h3>
+
+<a href="{% url 'ajouter_maitre_ouvrage' %}" class="btn btn-primary mb-3">
+    Ajouter
+</a>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Nom</th>
+        <th>Contact</th>
+        <th>Email</th>
+        <th>Adresse</th>
+        <th>Type</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for m in maitres %}
+    <tr>
+        <td>{{ m.nom }}</td>
+        <td>{{ m.contact }}</td>
+        <td>{{ m.email|default:"-" }}</td>
+        <td>{{ m.adresse|default:"-" }}</td>
+        <td>{{ m.type_client }}</td>
+        <td>
+            <a href="{% url 'modifier_maitre_ouvrage' m.id %}" class="btn btn-warning btn-sm">
+                Modifier
+            </a>
+
+            <a href="{% url 'supprimer_maitre_ouvrage' m.id %}" class="btn btn-danger btn-sm">
+                Supprimer
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</table>
+{% endblock %}
